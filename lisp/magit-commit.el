@@ -514,7 +514,7 @@ See `magit-commit-autofixup' for an alternative implementation."
                        (transient-args 'magit-commit-absorb))))
   (if (eq phase 'transient)
       (transient-setup 'magit-commit-absorb)
-    (unless (compat-executable-find "git-absorb" t)
+    (unless (executable-find "git-absorb")
       (user-error "This command requires the git-absorb executable, which %s"
                   "is available from https://github.com/tummychow/git-absorb"))
     (unless (magit-anything-staged-p)
@@ -557,7 +557,7 @@ See `magit-commit-absorb' for an alternative implementation."
                        (transient-args 'magit-commit-autofixup))))
   (if (eq phase 'transient)
       (transient-setup 'magit-commit-autofixup)
-    (unless (compat-executable-find "git-autofixup" t)
+    (unless (executable-find "git-autofixup")
       (user-error "This command requires the git-autofixup script, which %s"
                   "is available from https://github.com/torbiak/git-autofixup"))
     (unless (magit-anything-modified-p)

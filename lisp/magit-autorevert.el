@@ -106,7 +106,11 @@ seconds of user inactivity.  That is not desirable."
                (not global-auto-revert-mode) ; see #3460
                buffer-file-name
                (file-readable-p buffer-file-name)
-               (compat-executable-find (magit-git-executable) t)
+               (or (< emacs-major-version 27)
+                   (with-no-warnings
+                     (condition-case nil
+                         (executable-find magit-git-executable t) ; see #3684
+                       (wrong-number-of-arguments t)))) ; very old 27 built
                (magit-toplevel)
                (or (not magit-auto-revert-tracked-only)
                    (magit-file-tracked-p buffer-file-name)))
